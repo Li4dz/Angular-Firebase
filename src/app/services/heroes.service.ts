@@ -21,13 +21,12 @@ export class HeroesService {
 
     return this.http.post(this.heroesUrl, body, { headers })
       .map(res => { 
-        console.log(res.json());
+        // console.log(res.json());
         return res.json();
       })
   }
 
   actualizarHeroe(heroe:Heroe, key$:string){
-    console.log(heroe);
     let body = JSON.stringify(heroe);
     let headers = new Headers({
       'Content-Type' : 'application/json'
@@ -37,7 +36,6 @@ export class HeroesService {
 
     return this.http.put(url, body, { headers })
       .map(res => { 
-        console.log(res.json());
         return res.json();
       })
   }
@@ -48,5 +46,19 @@ export class HeroesService {
       .map(res => res.json());
   }
 
+  listarHeroes(){
+    let url = `${this.heroesUrl}`;
+    return this.http.get(url)
+      .map(res => res.json());
+  }
+
+  eliminarHeroe(key$:string){
+    let url = `${this.heroeUrl}/${key$}.json`;
+
+    return this.http.delete(url)
+      .map(res => { 
+        return res.json();
+      })
+  }
 
 }
